@@ -17,7 +17,7 @@ class Usuarios:
         validation_agencia = self.validate_agencia(agencia)
         if validation_agencia[0] is False:
             raise ParamNotValidated("agencia", validation_agencia[1])
-            self.agencia = agencia
+        self.agencia = agencia
 
         validation_conta = self.validate_conta(conta)
         if validation_conta[0] is False:
