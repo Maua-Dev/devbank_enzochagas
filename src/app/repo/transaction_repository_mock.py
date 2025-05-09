@@ -27,23 +27,23 @@ class TransactionRepositoryMock:
         self.transaction[transaction_id] = transaction
         return transaction
     
-    def delete_transaction(self, transaction_id: int) -> Transaction:
-        transaction = self.transaction.pop(transaction_id, None)
+    def withdraw_money_transaction(self, transaction: Transaction, transaction_id: int) -> Transaction:
+        self.transaction[transaction_id] = transaction
         return transaction
     
-    def update_transaction(self, transaction_id:int, type:TransactionType=None, value:float=None, current_balance:float=None, time_stamp:float=None) -> Transaction:
-        transaction = self.transaction.get(transaction_id, None)
-        if transaction is None:
-            return None
-        
-        if type is not None:
-            transaction.type = type
-        if value is not None:
-            transaction.value = value
-        if current_balance is not None:
-            transaction.current_balance = current_balance
-        if time_stamp is not None:
-            transaction.time_stamp = time_stamp
+    def deposit_money_transaction(self, transaction: Transaction, transaction_id: int) -> Transaction:
         self.transaction[transaction_id] = transaction
-        
-        return transaction  
+        return transaction
+    
+    def withdraw_money(self, transaction: Transaction) -> Transaction:
+        self.transaction[transaction.id] = transaction
+        return transaction
+    
+    def deposit_money(self, transaction: Transaction) -> Transaction:
+        self.transaction[transaction.id] = transaction
+        return transaction
+    
+    
+    
+
+    

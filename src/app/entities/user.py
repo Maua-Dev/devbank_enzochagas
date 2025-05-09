@@ -2,7 +2,7 @@ from typing import Tuple
 from src.app.errors.entity_errors import ParamNotValidated
 
 
-class Usuarios:
+class Users:
     nome = str; 
     agencia = int; 
     conta = int; 
@@ -73,7 +73,3 @@ class Usuarios:
         if current_balance < 0:
             return (False, "Current balance must be a positive number")
         return (True, "")
-
-
-
-
