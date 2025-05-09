@@ -32,24 +32,24 @@ class Users:
     @staticmethod
     def validate_nome(nome: str) -> Tuple[bool, str]:
         if nome is None:
-            return (False, "Nome é obrigatório")
+            return (False, "Name is required")
         if type(nome) != str:
-            return (False, "Nome deve ser uma string")
+            return (False, "Name musst be a string")
         if len(nome) < 2:
-            return (False, "Nome deve ter pelo menos 2 caracteres")
+            return (False, "Nome must be at least 2 characters long")
         return (True, "")
 
     @staticmethod
     def validate_agencia(agencia:int) -> Tuple[bool,str]: #isso se refere ao "Falso e msg de erro
 
         if agencia is None:
-            return (False, "Agência é obrigatória")
+            return (False, "Agency is required")
         if type(agencia) != int:
-            return (False, "Agência deve ser um número inteiro")
+            return (False, "Agency must be an integer")
         if agencia < 0:
-            return (False, "Agência deve ser um número positivo")
+            return (False, "Agency must be a positive number")
         if len(str(agencia))<4:
-            return(False, "Agência deve ter pelo menos 4 dígitos")
+            return(False, "Agency must be at least 4 digits long")
         return (True, "")
 
     @staticmethod
