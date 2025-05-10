@@ -1,4 +1,4 @@
-from ..enums.transaction_type_enum import TransactionType
+from ..enums.transaction_type_enum import TransactionTypeEnum
 from ..entities.transaction import Transaction
 
 from typing import Dict, Optional, List 
@@ -9,8 +9,8 @@ class TransactionRepositoryMock:
     
     def __init__(self):
         self.transaction = {
-            1: Transaction(type=TransactionType.DEPOSIT, value=100.0, current_balance=1000.0, time_stamp=1672531199),
-            2: Transaction(type=TransactionType.WITHDRAWAL, value=50.0, current_balance=950.0, time_stamp=1672531200),
+            1: Transaction(type_transaction=TransactionTypeEnum.DEPOSIT, value_transaction=100.0, current_balance=1000.0, time_stamp=1672531199),
+            2: Transaction(type_transaction=TransactionTypeEnum.WITHDRAWAL, value_transaction=50.0, current_balance=950.0, time_stamp=1672531200),
         }
         
         #o monte de numeros do timestamp representa a quantidade de segundos que se passaram desde 
@@ -23,9 +23,6 @@ class TransactionRepositoryMock:
     def get_transaction(self, transaction_id: int) -> Optional[Transaction]:
         return self.transaction.get(transaction_id, None)
     
-    def create_transaction(self, transaction: Transaction, transaction_id: int) -> Transaction:
-        self.transaction[transaction_id] = transaction
-        return transaction
     
     def withdraw_money_transaction(self, transaction: Transaction, transaction_id: int) -> Transaction:
         self.transaction[transaction_id] = transaction
@@ -35,14 +32,16 @@ class TransactionRepositoryMock:
         self.transaction[transaction_id] = transaction
         return transaction
     
-    def withdraw_money(self, transaction: Transaction) -> Transaction:
-        self.transaction[transaction.id] = transaction
-        return transaction
-    
-    def deposit_money(self, transaction: Transaction) -> Transaction:
-        self.transaction[transaction.id] = transaction
-        return transaction
-    
+    def current_balance_after_transaction(self, transaction: Transaction) -> float:
+        if transaction.type_transaction == TransactionTypeEnum.WITHDRAWAL:
+            transaction.current_balance -= transaction.value_transaction
+        elif transaction.type_transaction == TransactionTypeEnum.DEPOSIT:
+            transaction.current_balance += transaction.value_transaction
+        else:
+            raise ValueError("Invalid transaction type")
+        return transaction.current_balance
+     
+     
     
     
 

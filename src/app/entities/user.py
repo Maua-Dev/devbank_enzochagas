@@ -61,8 +61,11 @@ class Users:
         if conta<0:
             return(False, "Accont must be a positive number")
         if len(str(conta))<6:
-            return(False, "Account must be at least 6 digits long") 
+            return(False, "Account must be 6 digits long") 
+        if len(str(conta))>6:
+            return(False, "Account must be 6 digits long")
         return (True, "")
+    
     
     @staticmethod
     def validate_current_balance(current_balance:float) -> Tuple[bool,str]:
