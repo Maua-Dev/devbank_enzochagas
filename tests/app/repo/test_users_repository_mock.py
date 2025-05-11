@@ -1,5 +1,5 @@
 import pytest
-from src.app.entities.user import Users
+from src.app.entities.user import User
 from src.app.repo.users_repository_mock import UsersRepositoryMock
 
 class Test_UsersRepositoryMock:
@@ -29,13 +29,13 @@ class Test_UsersRepositoryMock:
         repo = UsersRepositoryMock()
         user = repo.get_user(user_id=1)
         name = repo.see_user_name(user=user)
-        assert name == user.nome
+        assert name == user.name
         
-    def test_see_user_agencia(self):
+    def test_see_user_agency(self):
         repo = UsersRepositoryMock()
         user = repo.get_user(user_id=1)
-        agencia = repo.see_user_agencia(user=user)
-        assert agencia == user.agencia
+        agency = repo.see_user_agency(user=user)
+        assert agency == user.agency
         
     
     

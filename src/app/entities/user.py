@@ -2,27 +2,27 @@ from typing import Tuple
 from src.app.errors.entity_errors import ParamNotValidated
 
 
-class Users:
-    nome = str; 
-    agencia = int; 
-    conta = int; 
+class User:
+    name = str; 
+    agency = int; 
+    account = int; 
     current_balance = 1000.00
 
-    def __init__(self, nome:str = None, agencia:int = None, conta:int = None, current_balance:float = None):
-        validation_nome = self.validate_nome(nome)
-        if validation_nome[0] is False:
-            raise ParamNotValidated("nome", validation_nome[1])
-        self.nome = nome
+    def __init__(self, name:str = None, agency:int = None, account:int = None, current_balance:float = None):
+        validation_name = self.validate_name(name)
+        if validation_name[0] is False:
+            raise ParamNotValidated("nome", validation_name[1])
+        self.name = name
 
-        validation_agencia = self.validate_agencia(agencia)
-        if validation_agencia[0] is False:
-            raise ParamNotValidated("agencia", validation_agencia[1])
-        self.agencia = agencia
+        validation_agency = self.validate_agency(agency)
+        if validation_agency[0] is False:
+            raise ParamNotValidated("agencia", validation_agency[1])
+        self.agency = agency
 
-        validation_conta = self.validate_conta(conta)
-        if validation_conta[0] is False:
-            raise ParamNotValidated("conta", validation_conta[1])
-        self.conta = conta
+        validation_account = self.validate_account(account)
+        if validation_account[0] is False:
+            raise ParamNotValidated("account", validation_account[1])
+        self.account = account
 
         validation_current_balance = self.validate_current_balance(current_balance)
         if validation_current_balance[0] is False:
@@ -30,39 +30,39 @@ class Users:
         self.current_balance = current_balance
 
     @staticmethod
-    def validate_nome(nome: str) -> Tuple[bool, str]:
-        if nome is None:
+    def validate_name(name: str) -> Tuple[bool, str]:
+        if name is None:
             return (False, "Name is required")
-        if type(nome) != str:
-            return (False, "Name musst be a string")
-        if len(nome) < 2:
-            return (False, "Nome must be at least 2 characters long")
+        if type(name) != str:
+            return (False, "Name must be a string")
+        if len(name) < 2:
+            return (False, "Name must be at least 2 characters long")
         return (True, "")
 
     @staticmethod
-    def validate_agencia(agencia:int) -> Tuple[bool,str]: #isso se refere ao "Falso e msg de erro
+    def validate_agency(agency:int) -> Tuple[bool,str]: #isso se refere ao "Falso e msg de erro
 
-        if agencia is None:
+        if agency is None:
             return (False, "Agency is required")
-        if type(agencia) != int:
+        if type(agency) != int:
             return (False, "Agency must be an integer")
-        if agencia < 0:
+        if agency < 0:
             return (False, "Agency must be a positive number")
-        if len(str(agencia))<4:
+        if len(str(agency))<4:
             return(False, "Agency must be at least 4 digits long")
         return (True, "")
 
     @staticmethod
-    def validate_conta(conta:int)-> Tuple[bool,str]:
-        if conta is None:
+    def validate_account(account:int)-> Tuple[bool,str]:
+        if account is None:
             return (False, "Account is required")
-        if not isinstance(conta, int):  # Verifica o tipo primeiro
+        if not isinstance(account, int):  # Verifica o tipo primeiro
             return (False, "Account must be an integer")
-        if conta<0:
+        if account<0:
             return(False, "Accont must be a positive number")
-        if len(str(conta))<6:
+        if len(str(account))<6:
             return(False, "Account must be 6 digits long") 
-        if len(str(conta))>6:
+        if len(str(account))>6:
             return(False, "Account must be 6 digits long")
         return (True, "")
     

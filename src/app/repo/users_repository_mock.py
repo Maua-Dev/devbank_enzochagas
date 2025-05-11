@@ -1,4 +1,4 @@
-from ..entities.user import Users
+from ..entities.user import User
 from ..errors.entity_errors import ParamNotValidated
 class UsersRepositoryMock:
 
@@ -6,10 +6,10 @@ class UsersRepositoryMock:
     
         
         self.users = {
-        1: Users(nome="Lucas", agencia=1234, conta=536277, current_balance=1000.00),
-        2: Users(nome="Ana", agencia=5678, conta=123456, current_balance=2000.00),
-        3: Users(nome="Carlos", agencia=2890, conta=234567, current_balance=1500.00),
-        4: Users(nome="Maria", agencia=1234, conta=345679, current_balance=2500.00),
+        1: User(name="Lucas", agency=1234, account=536277, current_balance=1000.00),
+        2: User(name="Ana", agency=5678, account=123456, current_balance=2000.00),
+        3: User(name="Carlos", agency=2890, account=234567, current_balance=1500.00),
+        4: User(name="Maria", agency=1234, account=345679, current_balance=2500.00),
     }
         
     def get_all_users(self):
@@ -22,11 +22,14 @@ class UsersRepositoryMock:
     #     self.users[user_id] = user
     #     return user
     
-    def see_user_balance(self, user: Users):
+    def see_user_balance(self, user: User):
         return user.current_balance    
     
-    def see_user_name(self, user: Users):
-        return user.nome
+    def see_user_name(self, user: User):
+        return user.name
     
-    def see_user_agencia(self, user: Users):
-        return user.agencia  
+    def see_user_agency(self, user: User):
+        return user.agency  
+    
+    def see_user_account(self, user: User):
+        return user.account
