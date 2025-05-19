@@ -1,7 +1,7 @@
 from ..entities.user import User
 from ..errors.entity_errors import ParamNotValidated
 class UsersRepositoryMock:
-
+    
     def __init__(self):
     
         
@@ -12,7 +12,7 @@ class UsersRepositoryMock:
         4: User(name="Maria", agency=1234, account=345679, current_balance=2500.00),
     }
         
-    def get_all_users(self):
+    def get_all_users(self): 
         return self.users.values()
     
     def get_user(self, user_id: int):

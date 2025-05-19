@@ -16,6 +16,10 @@ class TransactionRepositoryMock:
         #o monte de numeros do timestamp representa a quantidade de segundos que se passaram desde 
         # 1 de janeiro de 1970 até a efetualização da transação. 
         
+        
+    def get_items(self) -> Dict[int, Transaction]:
+        return self.transaction
+        
     def get_all_transactions(self) -> List[Transaction]:
         return self.transaction.values()
     

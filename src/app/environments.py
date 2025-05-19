@@ -43,6 +43,24 @@ class Environments:
         else:
             raise EnvironmentNotFound("STAGE")
         
+    @staticmethod
+    def get_user_repo() -> IItemRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from .repo.user_repository_mock import UsersRepositoryMock
+            return UsersRepositoryMock
+        # use "elif" conditional to add other stages
+        else:
+            raise EnvironmentNotFound("STAGE")
+        
+    @staticmethod
+    def get_transaction_repo() -> IItemRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from .repo.transaction_repository_mock import TransactionRepositoryMock
+            return TransactionRepositoryMock
+        # use "elif" conditional to add other stages
+        else:
+            raise EnvironmentNotFound("STAGE")
+        
 
     @staticmethod
     def get_envs() -> "Environments":
