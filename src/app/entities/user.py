@@ -76,3 +76,28 @@ class User:
         if current_balance < 0:
             return (False, "Current balance must be a positive number")
         return (True, "")
+    
+    
+    @staticmethod
+    def validate_user_id(user_id:int) -> Tuple[bool,str]:
+        if user_id is None:
+            return (False, "User ID is required")
+        if type(user_id) != int:
+            return (False, "User ID must be an integer")
+        if user_id < 0:
+            return (False, "User ID must be a positive number")
+        return (True, "")
+    
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "agency": self.agency,
+            "account": self.account,
+            "current_balance": self.current_balance
+        }
+        
+    def __eq__(self, value):
+        return self.name == value.name and self.agency == value.agency and self.account == value.account and self.current_balance == value.current_balance
+    
+    def __repr__(self):
+        return f"User(name={self.name}, agency={self.agency}, account={self.account}, current_balance={self.current_balance})"

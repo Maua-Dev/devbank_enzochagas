@@ -71,6 +71,16 @@ class Transaction:
             return (False, "Time stamp must be a integer")
         return (True, "")
     
+    @staticmethod
+    def validate_transaction_id(transaction_id:int) -> Tuple[bool,str]:
+        if transaction_id is None:
+            return (False, "Transaction ID is required")
+        if not isinstance(transaction_id, int):
+            return (False, "Transaction ID must be an integer")
+        if transaction_id < 0:
+            return (False, "Transaction ID must be a positive number")
+        return (True, "")
+    
     
     def to_dict(self):
             return {

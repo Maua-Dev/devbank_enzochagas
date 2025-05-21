@@ -152,16 +152,34 @@ repo_user = Environments.get_user_repo()()
 
 @app.get("/users/get_all_users")
 def get_all_users():
-    users = repo_user.get_all_users
+    users = repo_user.get_all_users()
     return {
             "users": [user.to_dict() for user in users]
-        }   
+        } 
+    
+    
+      
+@app.get("/users/get_user/{user_id}")
+def get_user(user_id: int):
+    validation_user_id = User.validate_user_id(user_id=user_id)
+    if not validation_user_id[0]:
+        raise HTTPException(status_code=400, detail=validation_user_id[1])
+    
+    user = repo_user.get_user(user_id)
+    
+    if user is None:
+        raise HTTPException(status_code=404, detail="User Not found")
+    
+    return {
+        "user_id": user_id,
+        "user": user.to_dict()    
+    }
+
 
     
     
-@app.get("/user/see_user_balance")
+@app.get("/user/see_user_balance/{user_id}")
 def see_user_balance(user_id: int):
-    user_id = user.user_id
     validation_user_id = User.validate_user_id(user_id=user_id)
     if not validation_user_id[0]:
         raise HTTPException(status_code=400, detail=validation_user_id[1])
@@ -176,10 +194,9 @@ def see_user_balance(user_id: int):
         "user_balance": repo_user.see_user_balance(user)    
     }
     
-@app.get("/user/see_user_name")
-def see_user_name(user: int):
-    user_id = user.user_id
-    validation_user_id = User.validate_name(user_id=user_id)
+@app.get("/user/see_user_name/{user_id}")
+def see_user_name(user_id: int):    
+    validation_user_id = User.validate_user_id(user_id=user_id)
     if not validation_user_id[0]:
         raise HTTPException(status_code=400, detail=validation_user_id[1])
     
@@ -194,9 +211,9 @@ def see_user_name(user: int):
     }
     
 @app.get("/user/see_user_agency")  
-def see_user_agency(user: int):
-    user_id = user.user_id
+def see_user_agency(user_id: int):
     validation_user_id = User.validate_user_id(user_id=user_id)
+    
     if not validation_user_id[0]:
         raise HTTPException(status_code=400, detail=validation_user_id[1])
     
@@ -210,8 +227,7 @@ def see_user_agency(user: int):
         "user_agency": repo_user.see_user_agency(user)    
     }
 @app.get("/user/see_user_account")
-def see_user_account(user: int):
-    user_id = user.user_id
+def see_user_account(user_id: int):
     validation_user_id = User.validate_user_id(user_id=user_id)
     if not validation_user_id[0]:
         raise HTTPException(status_code=400, detail=validation_user_id[1])
@@ -226,22 +242,6 @@ def see_user_account(user: int):
         "user_account": repo_user.see_user_account(user)    
     }
     
-@app.get("/user/see_user_balance")
-def see_user_balance(user: int):  #Modificamos o tipo de user para int
-    user_id = user.user_id
-    validation_user_id = User.validate_user_id(user_id=user_id)
-    if not validation_user_id[0]:
-        raise HTTPException(status_code=400, detail=validation_user_id[1])
-    
-    user = repo_user.get_user(user_id)
-    
-    if user is None:
-        raise HTTPException(status_code=404, detail="User Not found")
-    
-    return {
-        "user_id": user_id,
-        "user_balance": repo_user.see_user_balance(user)    
-    }
 
 repo_transaction = Environments.get_transaction_repo()() 
 
@@ -281,6 +281,9 @@ def withdraw_money_transaction(request: dict):
     transaction = repo_transaction.get_transaction(transaction_id)
     if transaction is not None:
         raise HTTPException(status_code=409, detail="Transaction already exists")
+    
+    if transaction_id is None:
+        raise HTTPException(status_code=400, detail="Transaction ID is required")
     
     type_transaction = request.get("type_transaction")
     value_transaction = request.get("value_transaction")
@@ -326,9 +329,10 @@ def deposit_money_transaction(request: dict):
         "transaction": transaction_response.to_dict()    
     }
     
-@app.get("/transactions/current_balance_after_transaction")
-def current_balance_after_transaction(transaction: int): #Modificamos o tipo de transaction para int
-    transaction_id = transaction.transaction_id
+@app.post("/transactions/current_balance_after_transaction")
+def current_balance_after_transaction(request: dict):
+    transaction_id = request.get("transaction_id")
+    
     validation_transaction_id = Transaction.validate_transaction_id(transaction_id=transaction_id)
     if not validation_transaction_id[0]:
         raise HTTPException(status_code=400, detail=validation_transaction_id[1])
@@ -340,7 +344,7 @@ def current_balance_after_transaction(transaction: int): #Modificamos o tipo de 
     
     return {
         "transaction_id": transaction_id,
-        "current_balance_after_transaction": repo_transaction.current_balance_after_transaction(transaction)    
+        "current_balance": repo_transaction.current_balance_after_transaction(transaction)    
     }
 
 handler = Mangum(app, lifespan="off")
