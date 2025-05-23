@@ -1,7 +1,7 @@
 import pytest
-from src.app.entities.user import User
+from ....src.app.entities.user import User
 from typing import Tuple
-from src.app.errors.entity_errors import ParamNotValidated
+from ....src.app.errors.entity_errors import ParamNotValidated
 
 
 class Test_usuarios: 

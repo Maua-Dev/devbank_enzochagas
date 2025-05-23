@@ -346,6 +346,7 @@ def current_balance_after_transaction(request: dict):
         "transaction_id": transaction_id,
         "current_balance": repo_transaction.current_balance_after_transaction(transaction)    
     }
+   
 
 handler = Mangum(app, lifespan="off")
 
