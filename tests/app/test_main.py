@@ -1,16 +1,16 @@
 from fastapi.exceptions import HTTPException
 import pytest
-from ...src.app.entities.item import Item
-from ...src.app.enums.item_type_enum import ItemTypeEnum
-from ...src.app.main import get_all_items, get_item, create_item, delete_item, update_item
-from ...src.app.repo.item_repository_mock import ItemRepositoryMock
-from ...src.app.entities.user import User
-from ...src.app.main import get_user, get_all_users, see_user_balance, see_user_name, see_user_agency, see_user_account 
-from ...src.app.repo.user_repository_mock import UsersRepositoryMock
-from ...src.app.entities.transaction import Transaction
-from ...src.app.enums.transaction_type_enum import TransactionTypeEnum
-from ...src.app.repo.transaction_repository_mock import TransactionRepositoryMock
-from ...src.app.main import get_all_transactions, get_transaction, withdraw_money_transaction, deposit_money_transaction, current_balance_after_transaction
+from src.app.entities.item import Item
+from src.app.enums.item_type_enum import ItemTypeEnum
+from src.app.main import get_all_items, get_item, create_item, delete_item, update_item
+from src.app.repo.item_repository_mock import ItemRepositoryMock
+from src.app.entities.user import User
+from src.app.main import get_user, get_all_users, see_user_balance, see_user_name, see_user_agency, see_user_account 
+from src.app.repo.user_repository_mock import UsersRepositoryMock
+from src.app.entities.transaction import Transaction
+from src.app.enums.transaction_type_enum import TransactionTypeEnum
+from src.app.repo.transaction_repository_mock import TransactionRepositoryMock
+from src.app.main import get_all_transactions, get_transaction, withdraw_money_transaction, deposit_money_transaction, current_balance_after_transaction
 
 class Test_Main:
     def test_get_all_items(self):
